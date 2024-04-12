@@ -25,6 +25,14 @@ RUN ls -la
 
 
 # RUN cd ./app && npm run build:production
+FROM base AS builder
+WORKDIR /app
+COPY --from=deps /app/app/node_modules ./node_modules
+COPY . .
+
+RUN npm install -g typescript
+
+RUN cd ./app && npm run build:production
 
 RUN ls -la
 
